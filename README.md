@@ -1,6 +1,7 @@
 # Python (Flask) Retail Application Example
 This is a simple application to simulate a customer based site that allows purchasing of items.
 The database we will be using will be postgreSQL. Connections will be pooled to avoid extensive resource use.
+Flask will run by default on port 5000
 
 To run the backend:
 1. Ensure python 3.10+ is installed, and create a virtual environment (install if you haven't via pip install virtualenv). Something like: virtualenv directoryName.
@@ -11,11 +12,8 @@ To run the backend:
 The fields we are most interested in...
 - USERNAME=
 - PASSWORD=
-- DATABASE=
-- DB_PORT=(default 5000)
+- DB_NAME=
+- DB_PORT=
 - DB_HOST=
-If you want to customize further for flask, ensure a .flaskenv file is at the root of project, with following:
-- FLASK_HOST=
-- FLASK_PORT=
 
 5. Use command: flask run (or python app.py for debugging).

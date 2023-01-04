@@ -34,3 +34,17 @@ ul.nav {
   overflow: hidden;
   background-color: #333;
 }
+
+ul.custRegisterList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.custRegisterList li {
+  margin-bottom: 1%;
+}
+
+ul.custRegisterList input {
+  margin: 0;
+}

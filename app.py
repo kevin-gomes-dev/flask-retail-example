@@ -1,12 +1,23 @@
 from flask import Flask, render_template as render, request
 app = Flask(__name__)
 
-
-@app.route('/')
+# Defining views here
+@app.route('/', methods=["GET"])
 def home():
     return render('index.html', **locals())
 
+@app.route('/about', methods=["GET"])
+def about():
+    return render('about.html', **locals())
 
+@app.route('/custRegister', methods=["GET","POST"])
+def custRegister():
+    if request.method == "GET":
+        return render('custRegister.html', **locals())
+    else:
+        return "Registration currently not implemented..."
+
+# Example code that will eventually get taken out
 @app.route('/example',methods=["GET","POST"])
 def example():
     if request.method == "GET":
