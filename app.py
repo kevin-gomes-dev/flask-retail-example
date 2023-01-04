@@ -1,16 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template as render, request
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
-    return """Welcome to the home page! Seeing this means the flask app is running successfully. Any
-requests you wish to make to the REST API can be done now."""
+    return render('index.html', **locals())
 
 
-@app.route('/example')
+@app.route('/example',methods=["GET","POST"])
 def example():
-    return render_template('example.html', **locals())
+    if request.method == "GET":
+        return render('example.html', fname="")
+    else:
+        fname = str(request.form.get('fname'))
+        return render('example.html', **locals())
 
 
 @app.route('/exampleForm', methods=["POST"])
