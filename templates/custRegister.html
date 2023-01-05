@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kevin Gomes, kevin.gomes.dev@gmail.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
+  </head>
+  <body>
+    <nav>
+      <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="example">Example Form</a></li>
+        <li><a class="active" href="custRegister">Customer Registration</a></li>
+        <li><a href="about">About</a></li>
+      </ul>
+    </nav>
+    <h1>Customer Registration</h1>
+    <h4>
+      Please fill out the following form and click "Submit" to register. To login, use your email
+      and password
+    </h4>
+    <h5>Registration currently not implemented...</h5>
+    <form action="custRegister" method="POST">
+      <ul class="custRegisterList">
+        <li>
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" name="fname" />
+        </li>
+
+        <li>
+          <label for="lname">Last Name:</label>
+          <input type="text" id="lname" name="lname" />
+        </li>
+
+        <li>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+        </li>
+
+        <li>
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" />
+        </li>
+
+        <li>
+          <label for="dob">Date Of Birth:</label>
+          <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" />
+        </li>
+
+        <li>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="example@gmail.com" />
+        </li>
+
+        <li>
+          <label for="confirmEmail">Confirm Email:</label>
+          <input type="email" id="confirmEmail" name="confirmEmail" />
+        </li>
+
+        <li>
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" placeholder="1234567890" />
+        </li>
+      </ul>
+      <input type="submit" value="Submit" />
+    </form>
+    <script src="{{url_for('static',filename='js/mainDisplay.js')}}"></script>
+  </body>
+</html>
