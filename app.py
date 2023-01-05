@@ -21,7 +21,8 @@ def custRegister():
     if request.method == "GET":
         return render('custRegister.html', **locals())
     else:
-        return "Registration currently not implemented..."
+        return "Customer registration not yet implemented. Data entered:" + str(list(request.form.values()))
+
 
 # Example code that will eventually get taken out
 
