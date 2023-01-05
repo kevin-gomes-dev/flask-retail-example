@@ -24,10 +24,14 @@
     <form action="custRegister" method="POST">
       <ul class="custRegisterList">
         <li>
-          <label for="fname">First Name:</label> <input type="text" id="fname" name="fname" />
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" name="fname" />
         </li>
 
-        <li><label for="lname">Last Name:</label> <input type="text" id="lname" name="lname" /></li>
+        <li>
+          <label for="lname">Last Name:</label>
+          <input type="text" id="lname" name="lname" />
+        </li>
 
         <li>
           <label for="password">Password:</label>
@@ -39,9 +43,15 @@
           <input type="password" id="confirmPassword" name="confirmPassword" />
         </li>
 
-        <li><label for="dob">Date Of Birth:</label> <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY"/></li>
+        <li>
+          <label for="dob">Date Of Birth:</label>
+          <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" />
+        </li>
 
-        <li><label for="email">Email:</label> <input type="email" id="email" name="email" placeholder="example@gmail.com" /></li>
+        <li>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="example@gmail.com" />
+        </li>
 
         <li>
           <label for="confirmEmail">Confirm Email:</label>
@@ -49,10 +59,11 @@
         </li>
 
         <li>
-          <label for="phone">Phone Number:</label> <input type="tel" id="phone" name="phone" placeholder="1234567890" />
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" placeholder="1234567890" />
         </li>
       </ul>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Submit" />
     </form>
     <script src="{{url_for('static',filename='js/mainDisplay.js')}}"></script>
   </body>
