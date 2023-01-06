@@ -1,6 +1,3 @@
-from app import app
-
-
 def testAbout(testClient):
     '''
     GIVEN a Flask app configured for testing

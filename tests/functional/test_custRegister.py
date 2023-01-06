@@ -1,6 +1,3 @@
-from app import app
-
-
 def testCustRegister(testClient):
     '''
     GIVEN a Flask app configured for testing
