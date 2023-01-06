@@ -2,6 +2,8 @@ from flask import Flask, render_template as render, request
 from dotenv import load_dotenv
 load_dotenv()
 
+# To allow creation of multiple apps, mainly for testing
+
 app = Flask(__name__)
 # Defining views here
 
