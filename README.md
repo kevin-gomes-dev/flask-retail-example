@@ -9,11 +9,11 @@ To run the backend:
 3. Install all requirements via pip install -r requirements.txt.
 4. Ensure a file called ".env" is placed at the root of the project with PostgreSQL credentials and the name of the database we connect to. Create a database to connect to if you haven't already via pgAdmin or psql. Ex: CREATE DATABASE flask-example
 
-The fields we are most interested in...
-- PSQL_USERNAME=
-- PSQL_PASSWORD=
-- DB_NAME=
-- DB_PORT=
-- DB_HOST=
+The fields we are most interested in (if empty or not provided, defaults will be used)
+- PSQL_USERNAME=(default 'postgres')
+- PSQL_PASSWORD=(default 'password')
+- DB_NAME=(default 'flask-example')
+- DB_PORT=(default '5432')
+- DB_HOST=(default 'http://localhost')
 
 5. Use command: flask run (or python app.py for debugging).
