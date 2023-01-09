@@ -8,4 +8,4 @@ def testHome(testClient):
     response = testClient.get('/')
     assert response.request.method == 'GET'
     assert response.status_code == 200
-    assert b'Home page' in response.data
+    assert b'<h1>Home page' in response.data

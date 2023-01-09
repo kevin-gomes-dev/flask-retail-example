@@ -38,11 +38,6 @@ def example():
         return render('example.html', **locals())
 
 
-@app.route('/exampleForm', methods=["POST"])
-def exampleForm():
-    return "Submitted! Name: " + str(request.form.get('fname'))
-
-
 # If we run via "python app.py", run in debug mode
 if __name__ == "__main__":
     app.run('localhost', 5000, True, True)

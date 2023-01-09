@@ -5,7 +5,7 @@ def testAbout(testClient):
     THEN check that the response is valid and the method is GET
     '''
     
-    response = testClient.get('/')
+    response = testClient.get('/about')
     assert response.request.method == 'GET'
     assert response.status_code == 200
-    assert b'About' in response.data
+    assert b'<h1>About' in response.data
