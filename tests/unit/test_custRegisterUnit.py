@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import request
 from app import app
 
@@ -13,6 +14,7 @@ def testCustRegister(testClient):
   data = {
     'fname': 'Kevin',
     'lname': 'Gomes',
+    'dob': '04/13/1996'
     
   }
   # testClient = app.test_client()
@@ -21,18 +23,23 @@ def testCustRegister(testClient):
   assert request.method == 'POST'
   assert response.content_type == 'application/json'
   assert len(data) <= 8
-  assert nameTest(data.get('fname')) == True
-  assert nameTest(data.get('lname')) == True
+  assert type(data.get('fname')) == str
+  assert type(data.get('lname')) == str
+  assert dobCheck(data.get('dob'))
   
-# Helper
-def nameTest(name: str):
+def dobCheck(date: str):
   '''
-  GIVEN a name to test
-  WHEN the name is going to be used
-  THEN check that the name is valid
+  Checks if date is in correct format. Accepted formats are mm-dd-yyyy and mm/dd/yyyy
 
   Args:
-      name (str): The name to test
+      date (str): The date to check
   '''
-  # In this case, we just check if it's a string. Don't need to get into naming laws...
-  return type(name) == str
+  result = True
+  try:
+    result = bool(datetime.strptime(date,'%m-%d-%Y'))
+  except ValueError:
+    try:
+      result = bool(datetime.strptime(date,'%m/%d/%Y'))
+    except ValueError:
+      result = False
+  return result
