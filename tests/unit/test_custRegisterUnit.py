@@ -1,12 +1,11 @@
 from datetime import datetime
 import re
 from flask import request
-from app import app
 
 
 def testCustRegister(testClient):
     '''
-    GIVEN customer data to be registered
+    GIVEN customer data to be registered and a Flask app configured for testing
     WHEN the '/custRegister' page is requested via POST
     THEN check that the response is valid and all data is valid
 
