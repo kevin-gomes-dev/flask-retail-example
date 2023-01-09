@@ -10,8 +10,8 @@ load_dotenv()
 # Please also log whenever database is accessed!
 try:
     dbPool = pool.SimpleConnectionPool(
-        1,
-        20,
+        os.getenv('MIN_CONNECT_LIMIT') or 1,
+        os.getenv('MAX_CONNECT_LIMIT') or 20,
         user=os.getenv('PSQL_USERNAME') or 'postgres',
         password=os.getenv('PSQL_PASSWORD') or 'password',
         host=os.getenv('DB_HOST') or 'localhost',

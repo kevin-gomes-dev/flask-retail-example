@@ -15,6 +15,8 @@ The fields we are most interested in (if empty or not provided, defaults will be
 - PSQL_PASSWORD=(default 'password')
 - DB_NAME=(default 'flask-example')
 - DB_PORT=(default '5432')
-- DB_HOST=(default 'http://localhost')
+- DB_HOST=(default 'localhost')
+- MAX_CONNECT_LIMIT=(default 20)
+- MIN_CONNECT_LIMIT=(default 1)
 
 5. Use command: flask run (or python app.py for debugging).
