@@ -27,11 +27,11 @@ def testCustRegister(testClient):
     assert len(data) <= 8
     assert type(data.get('fname')) == str
     assert type(data.get('lname')) == str
-    assert dobCheck(data.get('dob'))
+    assert dateCheck(data.get('dob'))
     assert emailCheck(data.get('email'))
 
 
-def dobCheck(date: str):
+def dateCheck(date: str):
     '''
     Checks if date is in correct format. Accepted formats are mm-dd-yyyy and mm/dd/yyyy
 
