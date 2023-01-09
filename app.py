@@ -1,6 +1,26 @@
+import os
 from flask import Flask, render_template as render, request
 from dotenv import load_dotenv
+from psycopg2 import pool
+import psycopg2
 load_dotenv()
+
+# Connect to database. Use .getconn() and .putconn() respectively when connecting to db
+# Get cursor via .cursor() and do SQL statements via cursor.execute. Close when done via cursor.close()
+# Please also log whenever database is accessed!
+try:
+    dbPool = pool.SimpleConnectionPool(
+        1,
+        20,
+        user=os.getenv('PSQL_USERNAME') or 'postgres',
+        password=os.getenv('PSQL_PASSWORD') or 'password',
+        host=os.getenv('DB_HOST') or 'localhost',
+        port=os.getenv('DB_PORT') or '5432',
+        database=os.getenv('DB_NAME') or 'flask-example')
+    if dbPool:
+        print('Successfully created PostgreSQL pool')
+except (Exception, psycopg2.DatabaseError) as error:
+    print('Error while connecting to PostgreSQL', error)
 
 # To allow creation of multiple apps, mainly for testing
 
