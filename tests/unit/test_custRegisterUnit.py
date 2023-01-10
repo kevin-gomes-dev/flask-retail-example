@@ -2,6 +2,7 @@ from datetime import datetime
 import re
 from flask import request
 import bcrypt
+from models import ShipAddr
 
 
 def testCustRegister(testClient):
@@ -19,24 +20,25 @@ def testCustRegister(testClient):
         'dob': '04/13/1996',
         'email': 'kevin.gomes.dev@gmail.com',
         'phone': '+1234567890',
-        # 'shipAddr': new ShipAddr(),
+        'shipAddr': ShipAddr('123 Sesame St', 'USA', 'Bristol', 'RI', '12345'),
         'cardNum': '1234567890123456',
         'password': 'hshTg420Blz^4WAT?!'
     }
     response = testClient.post('/custRegister', data=data)
     requestData = request.form
-    
+
     # We use the same salt each time in test to ensure encryption is working
     salt = b'$2b$12$DlR2UAnCQcJwZL1pxE68mu'
-    
+
     # Encode the password into bytes to be hashed, using same format as the HTML form allows
-    passBytes = requestData.get('password').encode('utf-8','strict')
-    hashedPass = bcrypt.hashpw(passBytes,salt)
-    
+    passBytes = requestData.get('password').encode('utf-8', 'strict')
+    hashedPass = bcrypt.hashpw(passBytes, salt)
+
     # Encode the card number in bytes to be hashed
-    cardBytes = requestData.get('cardNum').encode('utf-8','strict')
-    hashedCard = bcrypt.hashpw(cardBytes,salt)
-    
+    cardBytes = requestData.get('cardNum').encode('utf-8', 'strict')
+    hashedCard = bcrypt.hashpw(cardBytes, salt)
+
+    # Potentially modularize so all the specific data checking is done in other tests?
     assert request.method == 'POST'
     assert response.content_type == 'application/json'
     assert len(requestData) <= 8
@@ -49,6 +51,9 @@ def testCustRegister(testClient):
     # Since salt is same every time, the hashed values should be same. Note salt will be generated in app.
     assert hashedPass == b'$2b$12$DlR2UAnCQcJwZL1pxE68mu9nU3llLApzndGTbroJGAJ5PGNarjdRS'
     assert hashedCard == b'$2b$12$DlR2UAnCQcJwZL1pxE68muaFfczu1c55e4KuWdJ86hZ3LoC0nxHvq'
+
+    # Add shipping address validation, which calls a helper to validate
+
 
 def dateCheck(date: str):
     '''
@@ -88,6 +93,7 @@ def emailCheck(email: str):
     regex = reg1+reg2+reg3
     return re.match(regex, email)
 
+
 def phoneCheck(phone: str):
     '''
     Checks for valid phone numbers using pattern matching. Note the number could be fake...
@@ -102,4 +108,4 @@ def phoneCheck(phone: str):
     phone = phone.strip()
     # Start with 0-1 +, then either any amount of numbers or 44 followed by any amount of numbers
     regex = r'^[+]?([0-9]{1,15})$'
-    return re.match(regex,phone)
+    return re.match(regex, phone)
