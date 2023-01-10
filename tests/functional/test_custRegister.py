@@ -5,7 +5,7 @@ def testCustRegister(testClient):
     THEN check that the response is valid
     '''
 
-    response = testClient.get('/')
+    response = testClient.get('/custRegister')
     assert response.request.method == 'GET'
     assert response.status_code == 200
-    assert b'Customer Registration' in response.data
+    assert b'<h1>Customer Registration' in response.data
