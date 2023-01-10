@@ -20,7 +20,7 @@ def testCustRegister(testClient):
         'dob': '04/13/1996',
         'email': 'kevin.gomes.dev@gmail.com',
         'phone': '+1234567890',
-        'shipAddr': ShipAddr('123 Sesame St', 'USA', 'Bristol', 'RI', '12345'),
+        'shipAddr': ShipAddr('123 Sesame St', 'Bristol', 'RI', '12345'),
         'cardNum': '1234567890123456',
         'password': 'hshTg420Blz^4WAT?!'
     }
@@ -106,6 +106,6 @@ def phoneCheck(phone: str):
     # Replace unwanted characters
     phone = phone.strip('-')
     phone = phone.strip()
-    # Start with 0-1 +, then either any amount of numbers or 44 followed by any amount of numbers
+    # Start with 0-1 +, then 1-15 numbers after
     regex = r'^[+]?([0-9]{1,15})$'
     return re.match(regex, phone)

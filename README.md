@@ -1,7 +1,8 @@
 # Python (Flask) Retail Application Example
 This is a simple application to simulate a customer based site that allows purchasing of items.
 The database we will be using will be postgreSQL. Connections will be pooled to avoid extensive resource use.
-Flask will run by default on port 5000, host localhost (so it expects your database to be local)
+Flask will run by default on port 5000, host localhost (so it expects your database to be local).
+Development will be attempted in Test Driven Development format (TDD).
 To run tests, in project root directory run command: python -m pytest
 
 To run the backend:
