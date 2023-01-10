@@ -1,6 +1,7 @@
 from datetime import datetime
 import re
 from flask import request
+import bcrypt
 
 
 def testCustRegister(testClient):
@@ -16,19 +17,30 @@ def testCustRegister(testClient):
         'fname': 'Kevin',
         'lname': 'Gomes',
         'dob': '04/13/1996',
-        'email': 'kevin.gomes.dev@gmail.com'
+        'email': 'kevin.gomes.dev@gmail.com',
+        'phone': '1234567890',
+        # 'shipAddr': new ShipAddr(),
+        # 'cardNum': '1234567890123456',
+        'password': 'hshTg420Blz^4WAT?!'
     }
-    # testClient = app.test_client()
     response = testClient.post('/custRegister', data=data)
-    data = request.form
+    requestData = request.form
+    
+    # We use the same salt each time in test to ensure encryption is working
+    salt = b'$2b$12$DlR2UAnCQcJwZL1pxE68mu'
+    
+    # Encode the password into bytes to be hashed, using same format as the HTML form allows
+    passBytes = requestData.get('password').encode('utf-8','strict')
+    hashedPass = bcrypt.hashpw(passBytes,salt)
     assert request.method == 'POST'
     assert response.content_type == 'application/json'
-    assert len(data) <= 8
-    assert type(data.get('fname')) == str
-    assert type(data.get('lname')) == str
-    assert dateCheck(data.get('dob'))
-    assert emailCheck(data.get('email'))
-
+    assert len(requestData) <= 8
+    assert type(requestData.get('fname')) == str
+    assert type(requestData.get('lname')) == str
+    assert dateCheck(requestData.get('dob'))
+    assert emailCheck(requestData.get('email'))
+    # Since salt is same every time, the hashed password should be the same.
+    assert hashedPass == b'$2b$12$DlR2UAnCQcJwZL1pxE68mu9nU3llLApzndGTbroJGAJ5PGNarjdRS'
 
 def dateCheck(date: str):
     '''
