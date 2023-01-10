@@ -18,9 +18,9 @@ def testCustRegister(testClient):
         'lname': 'Gomes',
         'dob': '04/13/1996',
         'email': 'kevin.gomes.dev@gmail.com',
-        'phone': '1234567890',
+        'phone': '+1234567890',
         # 'shipAddr': new ShipAddr(),
-        # 'cardNum': '1234567890123456',
+        'cardNum': '1234567890123456',
         'password': 'hshTg420Blz^4WAT?!'
     }
     response = testClient.post('/custRegister', data=data)
@@ -32,15 +32,23 @@ def testCustRegister(testClient):
     # Encode the password into bytes to be hashed, using same format as the HTML form allows
     passBytes = requestData.get('password').encode('utf-8','strict')
     hashedPass = bcrypt.hashpw(passBytes,salt)
+    
+    # Encode the card number in bytes to be hashed
+    cardBytes = requestData.get('cardNum').encode('utf-8','strict')
+    hashedCard = bcrypt.hashpw(cardBytes,salt)
+    
     assert request.method == 'POST'
     assert response.content_type == 'application/json'
     assert len(requestData) <= 8
+    # Start checking data
     assert type(requestData.get('fname')) == str
     assert type(requestData.get('lname')) == str
     assert dateCheck(requestData.get('dob'))
     assert emailCheck(requestData.get('email'))
-    # Since salt is same every time, the hashed password should be the same.
+    assert phoneCheck(requestData.get('phone'))
+    # Since salt is same every time, the hashed values should be same. Note salt will be generated in app.
     assert hashedPass == b'$2b$12$DlR2UAnCQcJwZL1pxE68mu9nU3llLApzndGTbroJGAJ5PGNarjdRS'
+    assert hashedCard == b'$2b$12$DlR2UAnCQcJwZL1pxE68muaFfczu1c55e4KuWdJ86hZ3LoC0nxHvq'
 
 def dateCheck(date: str):
     '''
@@ -79,3 +87,19 @@ def emailCheck(email: str):
     reg3 = r'([a-z]{2,4}|\d+)$'
     regex = reg1+reg2+reg3
     return re.match(regex, email)
+
+def phoneCheck(phone: str):
+    '''
+    Checks for valid phone numbers using pattern matching. Note the number could be fake...
+    Valid phone numbers potentially start with +, followed by the whole number including area code
+    If international, can use 44 as well, but no spaces or - within number
+
+    Args:
+        phone (str): The phone number to check
+    '''
+    # Replace unwanted characters
+    phone = phone.strip('-')
+    phone = phone.strip()
+    # Start with 0-1 +, then either any amount of numbers or 44 followed by any amount of numbers
+    regex = r'^[+]?([0-9]{1,15})$'
+    return re.match(regex,phone)
