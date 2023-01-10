@@ -22,7 +22,7 @@
         and password
       </h4>
       <h5>Registration currently not implemented...</h5>
-      <form action="custRegister" method="POST">
+      <form name="custRegisterForm" action="custRegister" onsubmit="return validateCustomerForm();" method="POST">
         <ul class="custRegisterList">
           <li>
             <label for="fname">First Name:</label>
@@ -67,6 +67,6 @@
         <input type="submit" value="Submit" />
       </form>
     </div>
-    <script src="{{url_for('static',filename='js/mainDisplay.js')}}"></script>
+    <script src="{{url_for('static',filename='js/custRegister.js')}}"></script>
   </body>
 </html>
