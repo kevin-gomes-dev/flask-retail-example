@@ -26,15 +26,20 @@ function validateCustomerForm() {
   if (!nameCheck(lname.value)) {
     valid = false;
     addError('Last Name');
-  } else removeError('Last Name')
+  } else removeError('Last Name');
   return valid;
 }
 
+/**
+ * Check the name
+ * @param {*} name The name to check
+ * @returns Boolean for if name is valid
+ */
 function nameCheck(name) {
-  if (typeof name !== String && name === '') {
-    return false;
+  if (typeof name === 'string' && name.trim() !== '') {
+    return true;
   }
-  return true;
+  return false;
 }
 
 /**
@@ -42,7 +47,7 @@ function nameCheck(name) {
  * @param {String} item The field we wish to add an error for
  */
 function addError(item) {
-  if(document.getElementById(item + 'Error')) return `Error for ${item} already on page.`
+  if (document.getElementById(item + 'Error')) return `Error for ${item} already on page.`;
   const msgElement = document.createElement('h3');
   msgElement.id = item + 'Error';
   msgElement.textContent = `Check the ${item} field for any errors.`;
@@ -50,6 +55,6 @@ function addError(item) {
 }
 
 function removeError(item) {
-  document.body.removeChild(document.getElementById(item + 'Error'));
-  // document.createElement('input').inn
+  if (document.getElementById(item + 'Error'))
+    document.body.removeChild(document.getElementById(item + 'Error'));
 }
