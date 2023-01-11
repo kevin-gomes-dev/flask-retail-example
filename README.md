@@ -5,7 +5,7 @@ Flask will run by default on port 5000, host localhost (so it expects your datab
 Development will be attempted in Test Driven Development format (TDD).
 To run tests, in project root directory run command: python -m pytest
 
-To run the backend:
+To run the server:
 1. Ensure python 3.10+ is installed, and create a virtual environment (install if you haven't via pip install virtualenv). Something like: virtualenv directoryName.
 2. Tell your terminal to use this as the python (confirm with "which python" command). For Windows, this is (assuming my virtual env folder is called venv) source venv/Scripts/activate. For other OS, this is venv/bin/activate.
 3. Install all requirements via pip install -r requirements.txt.
@@ -20,4 +20,5 @@ The fields we are most interested in (if empty or not provided, defaults will be
 - MAX_CONNECT_LIMIT=(default 20)
 - MIN_CONNECT_LIMIT=(default 1)
 
-5. Use command: flask run (or python app.py for debugging).
+5. Use command: flask run.
+You should get a confirmation in your terminal that the server is running and for any database operations.

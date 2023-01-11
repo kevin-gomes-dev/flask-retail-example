@@ -6,27 +6,41 @@
 function validateCustomerForm() {
   const form = document.forms['custRegisterForm'];
   // Form fields
-  (fname = form['fname']),
-    (lname = form['lname']),
-    (password = form['password']),
-    (confirmPassword = form['confirmPassword']),
-    (dob = form['dob']),
-    (email = form['email']),
-    (confirmEmail = form['confirmEmail']),
-    (phone = form['phone']),
-    (shippingAddr = '');
+  const fname = form['fname'].value,
+    lname = form['lname'].value,
+    password = form['password'].value,
+    confirmPassword = form['confirmPassword'].value,
+    dob = form['dob'].value,
+    email = form['email'].value,
+    confirmEmail = form['confirmEmail'].value,
+    phone = form['phone'].value,
+    shippingAddr = '';
 
   let valid = true;
   // Begin checks
-  if (!nameCheck(fname.value)) {
+  if (!nameCheck(fname)) {
     valid = false;
     addError('First Name');
   } else removeError('First Name');
 
-  if (!nameCheck(lname.value)) {
+  if (!nameCheck(lname)) {
     valid = false;
     addError('Last Name');
   } else removeError('Last Name');
+
+  if (confirmPassword !== password) {
+    valid = false;
+    addError('confirmPassword', 'Please confirm both passwords are the same');
+  } else removeError('confirmPassword');
+
+  if (!passwordCheck(password)) {
+    valid = false;
+    addError(
+      'password',
+      'Ensure your password is at least 8 characters ' +
+        'and contains at least 1 uppercase letter, lowercase letter, number and symbol.'
+    );
+  } else removeError('password');
   return valid;
 }
 
@@ -45,16 +59,31 @@ function nameCheck(name) {
 /**
  * Adds an error h3 and appends to body that error. Does not add if error already there
  * @param {String} item The field we wish to add an error for
+ * @param {String} message The optional message we wish to display, otherwise it will show a default msg
  */
-function addError(item) {
+function addError(item, message) {
   if (document.getElementById(item + 'Error')) return `Error for ${item} already on page.`;
   const msgElement = document.createElement('h3');
   msgElement.id = item + 'Error';
-  msgElement.textContent = `Check the ${item} field for any errors.`;
+  msgElement.textContent = message || `Check the ${item} field for any errors.`;
   document.body.appendChild(msgElement);
 }
 
+/**
+ * Removes the node with id=item+'Error'
+ * @param {String} item The field we wish to remove an error for
+ */
 function removeError(item) {
   if (document.getElementById(item + 'Error'))
     document.body.removeChild(document.getElementById(item + 'Error'));
+}
+
+/**
+ * Checks whether password meets requirements: 8 chars, at least 1 uppercase and lowercase letter,
+ * number and symbol
+ * @param {String} password The password to check
+ */
+function passwordCheck(password) {
+  const pattern = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{8,}$/;
+  return pattern.test(password);
 }
