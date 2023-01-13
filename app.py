@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template as render, request
 from dotenv import load_dotenv
+from validation import validateCustomer
 from models import Customer
 from psycopg2 import pool
 import psycopg2
@@ -44,7 +45,7 @@ def custRegister():
     if request.method == "GET":
         return render('custRegister.html', **locals())
     else:
-        return list(request.form.values())
+        return str(validateCustomer(Customer(**request.form)))
 
 
 # Example code that will eventually get taken out
