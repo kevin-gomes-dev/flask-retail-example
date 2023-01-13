@@ -30,7 +30,7 @@ function validateCustomerForm() {
 
   if (confirmPassword !== password) {
     valid = false;
-    addError('confirmPassword', 'Please confirm both passwords are the same');
+    addError('confirmPassword', 'Please confirm both passwords are the same.');
   } else removeError('confirmPassword');
 
   if (!passwordCheck(password)) {
@@ -49,13 +49,18 @@ function validateCustomerForm() {
 
   if (confirmEmail !== email) {
     valid = false;
-    addError('confirmEmail', 'Please confirm both emails are the same');
+    addError('confirmEmail', 'Please confirm both emails are the same.');
   } else removeError('confirmEmail');
 
   if (!emailCheck(email)) {
     valid = false;
     addError('Email');
   } else removeError('Email');
+
+  if (!phoneCheck(phone)) {
+    valid = false;
+    addError('Phone');
+  } else removeError('Phone');
   return valid;
 }
 
@@ -80,7 +85,8 @@ function addError(item, message) {
   if (document.getElementById(item + 'Error')) return `Error for ${item} already on page.`;
   const msgElement = document.createElement('h3');
   msgElement.id = item + 'Error';
-  msgElement.textContent = message || `Check the ${item} field for any errors.`;
+  msgElement.textContent =
+    message || `Please confirm that ${item} has no formatting or value errors.`;
   document.body.appendChild(msgElement);
 }
 
@@ -140,3 +146,13 @@ function emailCheck(email) {
   return typeof email === 'string' && email.length >= 3 && pattern.test(email);
 }
 
+/**
+ * Checks if phone passed is valid format. Ex: +1234567890
+ * @param {String} phone The phone to check
+ * @returns Boolean if phone is valid
+ */
+function phoneCheck(phone) {
+  const pattern = /^[+]?([\d]{1,15})$/;
+  // Add some other checks to avoid doing regex
+  return typeof phone === 'string' && phone.length > 0 && pattern.test(phone);
+}
