@@ -2,6 +2,7 @@ from flask import request
 import bcrypt
 from utils import dateCheck, emailCheck, phoneCheck
 
+
 def testCustRegister(testClient):
     '''
     GIVEN customer data to be registered and a Flask app configured for testing
