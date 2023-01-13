@@ -41,6 +41,11 @@ function validateCustomerForm() {
         'and contains at least 1 uppercase letter, lowercase letter, number and symbol.'
     );
   } else removeError('password');
+
+  if (!dobCheck(dob)) {
+    valid = false;
+    addError('Date of Birth');
+  } else removeError('Date of Birth');
   return valid;
 }
 
@@ -82,6 +87,7 @@ function removeError(item) {
  * Checks whether password meets requirements: 8 chars, at least 1 uppercase and lowercase letter,
  * number and symbol
  * @param {String} password The password to check
+ * @returns Boolean for whether the password is valid
  */
 function passwordCheck(password) {
   // If password isn't even correct length, don't check regex
@@ -96,4 +102,14 @@ function passwordCheck(password) {
   */
   const pattern = /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[\W\S_]*[\W_])[\w\W\S_]{8,}$/;
   return pattern.test(password);
+}
+
+/**
+ * Checks if date entered is valid format MM/DD/YYYY or MM-DD-YYYY
+ * @param {String} dob 
+ * @returns Boolean for if date is valid
+ */
+function dobCheck(dob) {
+  const pattern = /^([\d]{2}-[\d]{2}-[\d]{4,})|([\d]{2}\/[\d]{2}\/[\d]{4,})/
+  return (typeof dob === 'string' && pattern.test(dob) && !isNaN(new Date(dob)?.getTime()));
 }

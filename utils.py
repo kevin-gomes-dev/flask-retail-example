@@ -18,7 +18,8 @@ def dateCheck(date: str):
         except ValueError:
             result = False
     return result
-  
+
+
 def emailCheck(email: str):
     '''
     Checks if email is correctly formatted. Accepted format is a@b.c (any amount of .c, like a@b.c.d.e)
@@ -38,6 +39,7 @@ def emailCheck(email: str):
     reg3 = r'([a-z]{2,4}|\d+)$'
     regex = reg1+reg2+reg3
     return re.match(regex, email)
+
 
 def phoneCheck(phone: str):
     '''
