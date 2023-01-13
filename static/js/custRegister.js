@@ -84,6 +84,16 @@ function removeError(item) {
  * @param {String} password The password to check
  */
 function passwordCheck(password) {
-  const pattern = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{8,}$/;
+  // If password isn't even correct length, don't check regex
+  if (password.length < 8) return false;
+  /*
+    First group is a positive lookahead matching lowercase (not starting)
+    Second group is same, for uppercase letter
+    Third group is same for digits
+    fourth group is for symbols. \W is non-alphanumeric, \S is any nonwhitespace. We add back _ since
+    \W removes the _.
+    We then finally ensure we have at least 8 of everything.
+  */
+  const pattern = /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[\W\S_]*[\W_])[\w\W\S_]{8,}$/;
   return pattern.test(password);
 }
