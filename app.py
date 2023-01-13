@@ -1,8 +1,6 @@
 import os
 from flask import Flask, render_template as render, request
 from dotenv import load_dotenv
-from validation import validateCustomer
-from models import Customer
 from psycopg2 import pool
 import psycopg2
 load_dotenv()
@@ -22,7 +20,7 @@ try:
     if dbPool:
         print('Successfully created PostgreSQL pool')
 except (Exception, psycopg2.DatabaseError) as error:
-    print('Error while creating PostgreSQL pool:', error)
+    print('Error while connecting to PostgreSQL', error)
 
 # To allow creation of multiple apps, mainly for testing
 
@@ -44,8 +42,8 @@ def about():
 def custRegister():
     if request.method == "GET":
         return render('custRegister.html', **locals())
-    else:
-        return str(validateCustomer(Customer(**request.form)))
+    elif request.method == "POST":
+        return list(request.form.values())
 
 
 # Example code that will eventually get taken out
@@ -55,7 +53,7 @@ def custRegister():
 def example():
     if request.method == "GET":
         return render('example.html', fname="")
-    else:
+    elif request.method == "POST":
         fname = str(request.form.get('fname'))
         return render('example.html', **locals())
 
