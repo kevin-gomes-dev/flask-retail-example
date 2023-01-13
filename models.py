@@ -37,6 +37,9 @@ class Customer:
 
     lname = ''
     'Last name'
+    
+    dob = ''
+    'Date of Birth, in form MM/DD/YYYY or MM-DD-YYYY'
 
     password = ''
     'Password, must be 8 chars, at least 1 lower and upper, number, and symbol'
@@ -46,6 +49,9 @@ class Customer:
 
     phone = ''
     'Phone number without dashes, spaces etc'
+    
+    cardNum = ''
+    'Credit or debit card number. For this example, we will not validate nor use any money'
 
     def __init__(self, **kwargs: dict) -> None:
         for key, value in kwargs.items():
