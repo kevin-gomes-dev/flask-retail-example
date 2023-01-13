@@ -13,8 +13,7 @@ function validateCustomerForm() {
     dob = form['dob'].value,
     email = form['email'].value,
     confirmEmail = form['confirmEmail'].value,
-    phone = form['phone'].value,
-    shippingAddr = '';
+    phone = form['phone'].value;
 
   let valid = true;
 
@@ -140,3 +139,4 @@ function emailCheck(email) {
   // Add some other checks to avoid doing regex
   return typeof email === 'string' && email.length >= 3 && pattern.test(email);
 }
+

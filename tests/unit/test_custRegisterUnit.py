@@ -1,6 +1,5 @@
 from flask import request
 import bcrypt
-from models import ShipAddr
 from utils import dateCheck, emailCheck, phoneCheck
 
 def testCustRegister(testClient):
@@ -18,7 +17,6 @@ def testCustRegister(testClient):
         'dob': '04/13/1996',
         'email': 'kevin.gomes.dev@gmail.com',
         'phone': '+1234567890',
-        'shipAddr': ShipAddr('123 Sesame St', 'Bristol', 'RI', '12345'),
         'cardNum': '1234567890123456',
         'password': 'hshTg420Blz^4WAT?!'
     }
@@ -49,5 +47,3 @@ def testCustRegister(testClient):
     # Since salt is same every time, the hashed values should be same. Note salt will be generated in app.
     assert hashedPass == b'$2b$12$DlR2UAnCQcJwZL1pxE68mu9nU3llLApzndGTbroJGAJ5PGNarjdRS'
     assert hashedCard == b'$2b$12$DlR2UAnCQcJwZL1pxE68muaFfczu1c55e4KuWdJ86hZ3LoC0nxHvq'
-
-    # Add shipping address validation, which calls a helper to validate

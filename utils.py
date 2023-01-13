@@ -10,6 +10,7 @@ def dateCheck(date: str):
         date (str): The date to check
     '''
     result = True
+    # Change to not do this kind of nested try-excepts?
     try:
         result = bool(datetime.strptime(date, '%m-%d-%Y'))
     except ValueError:
@@ -50,9 +51,6 @@ def phoneCheck(phone: str):
     Args:
         phone (str): The phone number to check
     '''
-    # Replace unwanted characters
-    phone = phone.strip('-')
-    phone = phone.strip()
     # Start with 0-1 +, then 1-15 numbers after
-    regex = r'^[+]?([0-9]{1,15})$'
+    regex = r'^[+]?([\d]{1,15})$'
     return re.match(regex, phone)
