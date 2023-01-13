@@ -42,7 +42,7 @@ def about():
 def custRegister():
     if request.method == "GET":
         return render('custRegister.html', **locals())
-    else:
+    elif request.method == "POST":
         return list(request.form.values())
 
 
@@ -53,7 +53,7 @@ def custRegister():
 def example():
     if request.method == "GET":
         return render('example.html', fname="")
-    else:
+    elif request.method == "POST":
         fname = str(request.form.get('fname'))
         return render('example.html', **locals())
 
