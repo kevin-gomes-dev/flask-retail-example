@@ -17,6 +17,7 @@ function validateCustomerForm() {
     shippingAddr = '';
 
   let valid = true;
+
   // Begin checks
   if (!nameCheck(fname)) {
     valid = false;
@@ -46,12 +47,22 @@ function validateCustomerForm() {
     valid = false;
     addError('Date of Birth');
   } else removeError('Date of Birth');
+
+  if (confirmEmail !== email) {
+    valid = false;
+    addError('confirmEmail', 'Please confirm both emails are the same');
+  } else removeError('confirmEmail');
+
+  if (!emailCheck(email)) {
+    valid = false;
+    addError('Email');
+  } else removeError('Email');
   return valid;
 }
 
 /**
  * Check the name
- * @param {*} name The name to check
+ * @param {String} name The name to check
  * @returns Boolean for if name is valid
  */
 function nameCheck(name) {
@@ -93,23 +104,39 @@ function passwordCheck(password) {
   // If password isn't even correct length, don't check regex
   if (password.length < 8) return false;
   /*
-    First group is a positive lookahead matching lowercase (not starting)
-    Second group is same, for uppercase letter
-    Third group is same for digits
-    fourth group is for symbols. \W is non-alphanumeric, \S is any nonwhitespace. We add back _ since
-    \W removes the _.
-    We then finally ensure we have at least 8 of everything.
-  */
+   * First group is a positive lookahead matching lowercase (not starting)
+   * Second group is same, for uppercase letter
+   * Third group is same for digits
+   * Fourth group is for symbols. \W is non-alphanumeric, \S is any nonwhitespace. We add back _ since
+   * \W removes the _.
+   * We then finally ensure we have at least 8 of everything.
+   */
   const pattern = /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[\W\S_]*[\W_])[\w\W\S_]{8,}$/;
-  return pattern.test(password);
+  // Add some other checks to avoid doing regex
+  return typeof password === 'string' && password.length >= 8 && pattern.test(password);
 }
 
 /**
- * Checks if date entered is valid format MM/DD/YYYY or MM-DD-YYYY
- * @param {String} dob 
- * @returns Boolean for if date is valid
+ * Checks if date entered is valid format MM/DD/YYYY or MM-DD-YYYY.
+ * @param {String} dob The date of birth to check
+ * @returns Boolean for if dob is valid
  */
 function dobCheck(dob) {
-  const pattern = /^([\d]{2}-[\d]{2}-[\d]{4,})|([\d]{2}\/[\d]{2}\/[\d]{4,})/
-  return (typeof dob === 'string' && pattern.test(dob) && !isNaN(new Date(dob)?.getTime()));
+  /*
+   * Two groups. First checks 2digits-2digits-4digits. Second does same with / instead of -
+   */
+  const pattern = /^([\d]{2}-[\d]{2}-[\d]{4,})|([\d]{2}\/[\d]{2}\/[\d]{4,})$/;
+  // Add some other checks to avoid doing regex
+  return typeof dob === 'string' && pattern.test(dob) && !isNaN(new Date(dob)?.getTime());
+}
+
+/**
+ * Checks if email passed is valid format. Ex: abc@domain.com
+ * @param {String} email The email to check
+ * @returns Boolean if email is valid
+ */
+function emailCheck(email) {
+  const pattern = /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/;
+  // Add some other checks to avoid doing regex
+  return typeof email === 'string' && email.length >= 3 && pattern.test(email);
 }
