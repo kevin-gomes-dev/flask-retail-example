@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template as render, request
 from dotenv import load_dotenv
+from models import Customer
 from psycopg2 import pool
 import psycopg2
 load_dotenv()
@@ -20,7 +21,7 @@ try:
     if dbPool:
         print('Successfully created PostgreSQL pool')
 except (Exception, psycopg2.DatabaseError) as error:
-    print('Error while connecting to PostgreSQL', error)
+    print('Error while creating PostgreSQL pool:', error)
 
 # To allow creation of multiple apps, mainly for testing
 
